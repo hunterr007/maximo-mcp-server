@@ -34,33 +34,42 @@ The tool endpoints use the `POST` method to receive parameters in a JSON payload
 -   `page_num` (optional, default: 1): The page number to return.
 -   `where` (optional): A filter to apply to the query. The value should be a valid Maximo `oslc.where` clause. For example, to filter for assets with a status of "OPERATING", you would use `"status=\"OPERATING\""`.
 
-## How to Use the Tools
+## Running the Maximo AI Assistant
 
-You can use a tool like `curl` to interact with the server.
+This project includes an interactive web application built with Streamlit that allows you to chat with an AI assistant powered by Gemini and your Maximo MCP server.
 
-### Get Asset
+### 1. Set Up Environment
 
-To get the details of a specific asset, you need to send a `GET` request to the `/tools/get_asset/<asset_id>` endpoint, where `<asset_id>` is the ID of the asset you want to retrieve.
+First, install the required Python packages:
 
 ```bash
-curl http://127.0.0.1:5001/tools/get_asset/YOUR_ASSET_ID
+pip install -r requirements.txt
 ```
 
-### List Assets
+You will also need to create a `.env` file in the root of the project with your Maximo and Google API keys:
 
-To list assets, you can send a `POST` request to the `/tools/list_assets` endpoint. You can also provide optional parameters for pagination and filtering.
+```
+MAXIMO_API_URL=https://your-maximo-instance.com
+MAXIMO_API_KEY=your-maximo-api-key
+GOOGLE_API_KEY=your-google-api-key
+```
 
-**Basic List:**
+### 2. Run the MCP Server
+
+In your first terminal, start the MCP server:
+
 ```bash
-curl -X POST http://127.0.0.1:5001/tools/list_assets
+python mcp_server.py
 ```
 
-**With Pagination:**
+The server will start on `http://localhost:5001`. Keep this terminal running.
+
+### 3. Run the Streamlit App
+
+In a **new terminal window**, run the Streamlit application:
+
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"page_size": 5, "page_num": 2}' http://127.0.0.1:5001/tools/list_assets
+streamlit run streamlit_app.py
 ```
 
-**With Filtering:**
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"where": "status=\\\"OPERATING\\\""}' http://127.0.0.1:5001/tools/list_assets
-```
+The application will open in your web browser. You can now chat with the Maximo AI Assistant and ask it questions about your assets.

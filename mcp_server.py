@@ -27,7 +27,7 @@ def get_asset(asset_id: str, lean: int = None, ignorecollectionref: int = None):
         params["lean"] = lean
     if ignorecollectionref is not None:
         params["ignorecollectionref"] = ignorecollectionref
-    response = requests.get(f"{MAXIMO_API_URL}/os/mxasset/{asset_id}", headers=headers, params=params)
+    response = requests.get(f"{MAXIMO_API_URL}/os/mxasset/{asset_id}?lean=1&ignorecollectionref=1", headers=headers, params=params)
     response.raise_for_status()
     return response.json()
 
