@@ -1,0 +1,48 @@
+{
+  "name": "maximo-mcp-server",
+  "description": "MCP Server for IBM Maximo API",
+  "tools": [
+    {
+      "name": "get_asset",
+      "description": "Retrieves details of a specific asset by its ID.",
+      "path": "/tools/get_asset/{asset_id}",
+      "parameters": [
+        {
+          "name": "asset_id",
+          "in": "path",
+          "type": "string",
+          "description": "The ID of the asset to retrieve.",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "list_assets",
+      "description": "Lists all assets, with optional filtering and pagination.",
+      "path": "/tools/list_assets",
+      "parameters": [
+        {
+          "name": "page_size",
+          "in": "query",
+          "type": "integer",
+          "description": "The number of assets to return per page.",
+          "required": false
+        },
+        {
+          "name": "page_num",
+          "in": "query",
+          "type": "integer",
+          "description": "The page number to return.",
+          "required": false
+        },
+        {
+          "name": "oslc.where",
+          "in": "query",
+          "type": "string",
+          "description": "A filter to apply to the query (e.g., 'status=\\\"OPERATING\\\"').",
+          "required": false
+        }
+      ]
+    }
+  ]
+}
